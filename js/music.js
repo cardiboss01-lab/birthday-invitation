@@ -25,3 +25,43 @@
     buttonText.textContent = "Music";
   });
 })();
+
+
+let ytPlayer;
+let playerReady = false;
+let enterClicked = false;
+
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player("youtubePlayer", {
+        width: "320",
+        height: "200",
+        videoId: "9usFmiEE4BY",
+        playerVars: {
+            playsinline: 1,
+            controls: 1,
+            rel: 0
+        },
+        events: {
+            onReady: function () {
+                playerReady = true;
+                document.getElementById("enterButton").textContent =
+                    "♫ Play & Enter";
+            }
+        }
+    });
+}
+
+document.getElementById("enterButton").addEventListener("click", function () {
+    enterClicked = true;
+
+    if (!playerReady) {
+        this.textContent = "Loading song... tap again shortly";
+        return;
+    }
+
+    ytPlayer.playVideo();
+
+    // Keep the entrance visible until the guest starts the song.
+    // Then reveal the birthday website.
+    document.getElementById("musicEntrance").classList.add("hidden");
+});
