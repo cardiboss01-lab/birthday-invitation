@@ -1,13 +1,9 @@
 
-const music = new Audio("assets/living-room-flow.mp3");
-
-music.loop = true;
-music.volume = 0.7;
-
+const music = document.querySelector("#backgroundMusic");
 const musicButton = document.querySelector("#musicButton");
 const musicButtonText = document.querySelector("#musicButtonText");
 
-if (musicButton) {
+if (music && musicButton && musicButtonText) {
   musicButton.addEventListener("click", async () => {
     try {
       if (music.paused) {
@@ -16,12 +12,12 @@ if (musicButton) {
         musicButton.setAttribute("aria-pressed", "true");
       } else {
         music.pause();
-        musicButtonText.textContent = "Play music";
+        musicButtonText.textContent = "Music";
         musicButton.setAttribute("aria-pressed", "false");
       }
     } catch (error) {
-      console.error("Music playback failed:", error);
-      alert("The song couldn't play. Check that the MP3 file is in the assets folder and named living-room-flow.mp3.");
+      console.error("Audio error:", error);
+      alert("The song could not play. Please check the MP3 file path and open the browser console for details.");
     }
   });
 }
